@@ -1,0 +1,5 @@
+set -e
+
+.git_hooks/pre-commit/01-lint-openapi.sh && \
+.git_hooks/pre-commit/02-lint-php.sh && \
+.git_hooks/pre-commit/03-php-cs-fixer.sh

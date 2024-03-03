@@ -1,0 +1,7 @@
+set -e
+
+.git_hooks/pre-push/01-check-env-example.sh && \
+.git_hooks/pre-push/02-composer-validate.sh && \
+.git_hooks/pre-push/03-phpstan.sh && \
+.git_hooks/pre-push/04-test-code.sh && \
+.git_hooks/pre-push/05-generate-server-check.sh

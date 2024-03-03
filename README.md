@@ -1,25 +1,14 @@
-# Ensi Backend Service Skeleton
+# Ad management
 
-Представляет из себя модифицированную под наши нужды экземпляр `Laravel 9.2.0`
-## Разворот непосредественно самого скелетона локально для разработки
+Сервис для проекта "Доска объявлений товаров"
 
-Разворот сервис не отличается от разворота любого другого сервиса Ensi и описан [тут](https://docs.ensi.tech/installation/local/backend)
+Перед началом работы:
+1. Указываем в .env доступы к БД
+2. `composer i && npm i`
+3. `php artisan key:generate`
+4. `php artisan storage:link`
 
-## Разворот сервиса из Ensi Backend Service Skeleton
-
-1. `git clone git@gitlab.com:greensight/ensi/backend-service-skeleton.git <new-repo-name>`
-2. `cd <new-repo-name>`
-3. `rm -rf .git && git init`
-4. `git remote add origin git@gitlab.com:greensight/<project>/<new-repo-name>.git`
-5. Указываем в `.env.example` нужный `APP_NAME`
-6. Переимновываем/удаляем все заглушки вроде `backend_skeleton` в конфигах, документации и коде сервиса
-7. `cp .env.example .env`
-8. Указываем в .env доступы к БД
-9. Обновляем `README.md`
-10. `composer i && npm i`
-11. `git add . && git commit -m "Initial commit" && git push -u origin master`
-12. `php artisan key:generate`
-13. `php artisan storage:link`
+Сервис разработан при помощи шаблона Ensi Backend Service Skeleton, о котором можно узнать [здесь](https://gitlab.com/greensight/ensi/templates/backend-service-skeleton)
 
 ## Модификации относительно чистого Laravel
 
@@ -49,10 +38,7 @@ config('app.locale') = 'ru';
 ### Git hooks
 
 Хуки лежат в репозитории, в директории .git_hooks
-Устанавливаются автоматически через husky во время npm install
-
-Управлять какие именно хуки выполняются и в каком порядке можно в файле .huskyrc.json, он лежит в репозитории.
-При необходимости его содержимое можно переопределить файлом .huskyrc с тем же форматом, он уже находится в .gitignore.
+Устанавливаются c помощью скрипта ./setup_git_hooks.sh
 
 ### Ensi Storage
 
