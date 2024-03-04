@@ -1,0 +1,4 @@
+set -e
+
+.git_hooks/post-merge/01-install-dependencies.sh && \
+.git_hooks/post-merge/02-clear-cache.sh
