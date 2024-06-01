@@ -1,0 +1,105 @@
+paths:
+  /categories:
+    post:
+      summary: Create a new category
+      operationId: createCategory
+      tags:
+        - Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './components.yaml#/components/schemas/CreateCategoryRequest'
+      responses:
+        '201':
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/CategoryResource'
+        '400':
+          description: Invalid input
+      security:
+        - bearerAuth: []
+    get:
+      summary: Get all categories
+      operationId: listCategories
+      tags:
+        - Categories
+      responses:
+        '200':
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components.yaml#/components/schemas/CategoryResource'
+  /categories/{id}:
+    get:
+      summary: Get a single category
+      operationId: getCategory
+      tags:
+        - Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detailed information about a category
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/CategoryResource'
+        '404':
+          description: Category not found
+    put:
+      summary: Update a category
+      operationId: updateCategory
+      tags:
+        - Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './components.yaml#/components/schemas/UpdateCategoryRequest'
+      responses:
+        '200':
+          description: Category updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/CategoryResource'
+        '404':
+          description: Category not found
+      security:
+        - bearerAuth: []
+    delete:
+      summary: Delete a category
+      operationId: deleteCategory
+      tags:
+        - Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Category deleted successfully
+        '404':
+          description: Category not found
+      security:
+        - bearerAuth: []

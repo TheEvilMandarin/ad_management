@@ -1,0 +1,187 @@
+paths:
+  /advertisements:
+    post:
+      summary: Create a new advertisement
+      operationId: createAdvertisement
+      tags:
+        - Advertisements
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './components.yaml#/components/schemas/CreateAdvertisementRequest'
+      responses:
+        '201':
+          description: Advertisement created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/AdvertisementResource'
+        '400':
+          description: Invalid input
+      security:
+        - bearerAuth: []
+    get:
+      summary: Get all advertisements
+      operationId: listAdvertisements
+      tags:
+        - Advertisements
+      parameters:
+        - in: query
+          name: filter[category_id]
+          schema:
+            type: integer
+          description: Filter advertisements by category
+        - in: query
+          name: sort
+          schema:
+            type: string
+            enum: [price, created_at]
+          description: Sort advertisements by price or creation date
+      responses:
+        '200':
+          description: A list of advertisements
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components.yaml#/components/schemas/AdvertisementResource'
+  /advertisements/{id}:
+    get:
+      summary: Get a single advertisement
+      operationId: getAdvertisement
+      tags:
+        - Advertisements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detailed information about an advertisement
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/AdvertisementResource'
+        '404':
+          description: Advertisement not found
+    put:
+      summary: Update an advertisement
+      operationId: updateAdvertisement
+      tags:
+        - Advertisements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './components.yaml#/components/schemas/UpdateAdvertisementRequest'
+      responses:
+        '200':
+          description: Advertisement updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/AdvertisementResource'
+        '404':
+          description: Advertisement not found
+      security:
+        - bearerAuth: []
+    delete:
+      summary: Delete an advertisement
+      operationId: deleteAdvertisement
+      tags:
+        - Advertisements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Advertisement deleted successfully
+        '404':
+          description: Advertisement not found
+      security:
+        - bearerAuth: []
+
+components:
+  schemas:
+    CreateAdvertisementRequest:
+      type: object
+      required:
+        - title
+        - description
+        - price
+        - category_id
+      properties:
+        title:
+          type: string
+          example: "Great deal on electronics"
+        description:
+          type: string
+          example: "A lightly used smartphone with all accessories"
+        price:
+          type: integer
+          example: 29900
+        category_id:
+          type: integer
+          example: 1
+    UpdateAdvertisementRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Updated title for the advertisement"
+        description:
+          type: string
+          example: "Updated description for the advertisement"
+        price:
+          type: integer
+          example: 249
+        category_id:
+          type: integer
+          example: 1
+    AdvertisementResource:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Great deal on electronics"
+        description:
+          type: string
+          example: "A lightly used smartphone with all accessories"
+        price:
+          type: integer
+          example: 29900
+        category_id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 2
+        status:
+          type: string
+          example: "active"
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-02T12:00:00Z'

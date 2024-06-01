@@ -9,7 +9,10 @@ return [
     | Array of global middleware fully qualified class names.
     */
     'global_middleware' => [ RdKafkaConsumerMiddleware::class, KafkaMetricsMiddleware::class ],
-    'stop_signals' => [SIGTERM, SIGINT],
+    'stop_signals' => [
+        defined('SIGTERM') ? SIGTERM : null,
+        defined('SIGINT') ? SIGINT : null,
+    ],
 
     'processors' => [
         // [

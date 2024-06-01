@@ -23,6 +23,7 @@ class Kernel extends HttpKernel
         SetInitialEventHttpMiddleware::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \App\Http\Middleware\Cors::class,
     ];
 
     /**
@@ -46,4 +47,12 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
+
+    protected $routeMiddleware = [
+        'simple-jwt' => \App\Http\Middleware\SimpleJwtMiddleware::class,
+        'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+        'admin-or-owner' => \App\Http\Middleware\EnsureUserIsAdminOrOwner::class,
+        'admin-or-owner-of-favorite' => \App\Http\Middleware\EnsureUserIsAdminOrOwnerOfFavorite::class,
+    ];
+
 }
